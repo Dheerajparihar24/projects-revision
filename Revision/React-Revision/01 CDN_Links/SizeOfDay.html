@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    //ASSIGNMENT - 1
+    // const element = React.createElement("h1", null, "Hello, world!");
+    // const root = ReactDOM.createRoot(document.getElementById("root"));
+    // root.render(element);
+
+    //ASSIGNMENT - 2
+    // Simple JSX Element
+    // function JsxElement() {
+    //   return (<p>Size of the Day!</p>);
+    // }
+    // const root = ReactDOM.createRoot(document.getElementById("root"));
+    // root.render(<JsxElement />);
+
+    // Dynamic Content in JSX
+
+    // let msg = "Size of the Day!";
+
+    // function JsxElement() {
+    //   return <p>{msg}</p>;
+    // }
+    // const root = ReactDOM.createRoot(document.getElementById("root"));
+    // root.render(<JsxElement />);
+
+    // Conditional Rendering in JSX
+
+    let flag = false;
+
+    function App() {
+      return <>{flag ? <p>Size of the day</p> : <p>Not size of the day</p>}</>;
+    }
+
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</html>
