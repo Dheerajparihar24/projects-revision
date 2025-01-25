@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Watch card</title>
+    <style>
+      .card-container {
+        width: 80%;
+        border: 2px solid black;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: auto;
+        padding: 10px;
+      }
+      img {
+        width: 100%;
+      }
+      .price {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .about {
+        color: rgb(76, 72, 66);
+        font-size: 20px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .title {
+        color: goldenrod;
+      }
+
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .feature {
+        padding: 0;
+        width: 30%;
+        margin: 0.5% 1%;
+        font-size: 18px;
+      }
+
+      .detail {
+        padding: 0;
+        margin: 0;
+        font-size: 18px;
+      }
+
+      button {
+        width: 100%;
+        height: 50px;
+        margin: 10px 0;
+        background-color: palevioletred;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function ContentContainer(prop) {
+        const { title, price, details, features, productDetails } = prop;
+
+        return (
+          <React.Fragment>
+            <div>
+              <h2>{title}</h2>
+              <p className="price">$ {price} USD</p>
+              <p className="about">{details}</p>
+            </div>
+
+            <div className="feature-box">
+              <h3 className="title">FEATURES</h3>
+              <div className="features">
+                {features.map((feature, index) => (
+                  <p className="feature" key={index}>
+                    {feature}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div class="product-details-box">
+              <h3 className="title">PRODUCTS DETAILS</h3>
+              <div className="product-details">
+                {productDetails.map((detail, index) => {
+                  //   const displayText = `${detail.label}: ${detail.value}`;
+                  return (
+                    <p className="detail" key={index}>
+                      <strong>{detail.label}</strong> : {detail.value}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div>
+              <button>ADD TO CART</button>
+              <p style={{ fontSize: "18px", margin: "0", textAlign: "center" }}>
+                🚋 2-3 business days delivery
+              </p>
+            </div>
+          </React.Fragment>
+        );
+      }
+
+      function Card() {
+        const features = [
+          "Chronograph",
+          "Master Chronometer Certified",
+          "Tachymeter",
+          "Anti-magnetic",
+          "Chronometer",
+        ];
+
+        const productDetails = [
+          { label: "Between lugs", value: "20 mm" },
+          { label: "Bracelet", value: "Leather strap" },
+          { label: "Case", value: "Steel" },
+          { label: "Case diameter", value: "42 mm" },
+          { label: "Dial color", value: "Black" },
+          {
+            label: "Crystal",
+            value:
+              "Domed, scratch-resistant sapphire crystal with anti-reflective treatment inside",
+          },
+          { label: "Water resistance", value: "5 bar (50 metres / 167 feet)" },
+        ];
+
+        return (
+          <div className="card-container">
+            <div className="img-container">
+              <img
+                src="https://sylvi.in/cdn/shop/collections/Banner-1920x550.webp?v=1735818112"
+                alt=""
+              />
+            </div>
+            <ContentContainer
+              title="Automatic Watch"
+              price="350.00"
+              details="orem ipsum dolor sit amet consectetur adipisicing elit. Aperiam mollitia inventore, dicta quisquam cumque totam quidem aliquid velit nisi autem quas dolorem earum saepe voluptatem qui cum incidunt praesentium? Quod!"
+              features={features}
+              productDetails={productDetails}
+            />
+          </div>
+        );
+      }
+
+      function App() {
+        return <Card />;
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
