@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        background-color: bisque;
+        gap: 10px;
+      }
+
+      form > input {
+        width: 50%;
+        padding: 8px;
+      }
+
+      form > input[type="submit"] {
+        width: 110px;
+        background-color: rgb(60, 59, 59);
+        color: white;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: black;
+      }
+
+      #todo-container {
+        margin: 10px;
+      }
+
+      .todoCard {
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        background-color: yellowgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const ToDoList = ({ todos, setTodos }) => {
+      const [todo, setTodo] = React.useState("");
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (todo.trim() == "") {
+          return alert("Todo cannot be empty!");
+        }
+
+        const newTodo = {
+          title: todo,
+          status: false,
+        };
+
+        const updatedTodo = [...todos, newTodo];
+        setTodos(updatedTodo);
+        localStorage.setItem("todos", JSON.stringify(updatedTodo));
+        setTodo("");
+      };
+      return (
+        <>
+          <div id="todoList-container">
+            <h1
+              style={{
+                color: "brown",
+                textAlign: "center",
+                marginBottom: "5px",
+              }}
+            >
+              ToDoList
+            </h1>
+
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Enter todo..."
+                value={todo}
+                onChange={(e) => setTodo(e.target.value)}
+              />
+              <input type="submit" value="Add" />
+            </form>
+          </div>
+        </>
+      );
+    };
+
+    const DisplayTodo = ({ todos, setTodos }) => {
+      const handleDelete = (i) => {
+        const updatedTodo = todos.filter((todo, index) => index !== i);
+
+        setTodos(updatedTodo);
+        localStorage.setItem("todos", JSON.stringify(updatedTodo));
+      };
+
+      const handleCheckboxStatus = (index) => {
+        const updatedTodo = todos.map((todo, i) =>
+          index === i ? { ...todo, status: !todo.status } : todo
+        );
+
+        setTodos(updatedTodo);
+        localStorage.setItem("todos", JSON.stringify(updatedTodo));
+      };
+
+      return (
+        <div id="todo-container">
+          {todos.map((todo, index) => (
+            <div className="todoCard" key={index}>
+              <input
+                type="checkbox"
+                name="status"
+                checked={todo.status}
+                onChange={(e) => handleCheckboxStatus(index)}
+              />
+              <h3
+                style={{
+                  textDecoration: todo.status ? "line-through" : "none",
+                }}
+              >
+                {todo.title}
+              </h3>
+              <button onClick={() => handleDelete(index)}>Delete</button>
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    function App() {
+      const [todos, setTodos] = React.useState([]);
+
+      React.useEffect(() => {
+        const storedTodos = localStorage.getItem("todos");
+        setTodos(storedTodos ? JSON.parse(storedTodos) : []);
+      }, []);
+
+      return (
+        <>
+          <ToDoList todos={todos} setTodos={setTodos} />
+          <DisplayTodo todos={todos} setTodos={setTodos} />
+        </>
+      );
+    }
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</html>
