@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Greeting Card</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const greetingCards = [
+      {
+        greeting: "Happy Birthday!",
+        name: "John Doe",
+      },
+      {
+        greeting: "Season's Greetings",
+        name: "Jane Smith",
+      },
+      {
+        greeting: "Congratulations!",
+        name: "David Lee",
+      },
+      {
+        greeting: "Happy Anniversary!",
+        name: "Sarah Jones",
+      },
+      {
+        greeting: "Thinking of You",
+        name: "Michael Brown",
+      },
+      {
+        greeting: "Get Well Soon!",
+        name: "Emily Davis",
+      },
+      {
+        greeting: "Welcome!",
+        name: "Chris Wilson",
+      },
+      {
+        greeting: "Thank You!",
+        name: "Ashley Garcia",
+      },
+      {
+        greeting: "Happy Holidays!",
+        name: "Robert Rodriguez",
+      },
+      {
+        greeting: "Good Luck!",
+        name: "Elizabeth Martinez",
+      },
+    ];
+
+    function GreetingCard({ greeting, name }) {
+      return (
+        <>
+          <h1
+            style={{
+              margin: "10px",
+              backgroundColor: "yellow",
+              padding: "10px",
+            }}
+          >
+            {greeting} {name}
+          </h1>
+        </>
+      );
+    }
+
+    function App() {
+      return (
+        <div style={{ border: "1px solid black", padding: "10px" }}>
+          {greetingCards.map((card, index) => (
+            <GreetingCard
+              key={index}
+              greeting={card.greeting}
+              name={card.name}
+            />
+          ))}
+        </div>
+      );
+    }
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</html>
