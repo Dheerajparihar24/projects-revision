@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+input {
+  padding: 10px;
+  width: 50%;
+}
+button {
+  width: 100px;
+  font-weight: bold;
+  background-color: rgb(57, 17, 95);
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+button:hover {
+  background-color: rgb(34, 2, 64);
+}
